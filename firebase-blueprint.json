@@ -1,0 +1,78 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "A user of the application",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The user's unique ID"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "The user's email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "The user's display name"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the user was created"
+        }
+      },
+      "required": ["uid", "email", "createdAt"]
+    },
+    "Portfolio": {
+      "title": "Portfolio",
+      "description": "A saved portfolio recommendation",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "The ID of the user who owns this portfolio"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The total investment amount"
+        },
+        "currency": {
+          "type": "string",
+          "description": "The currency of the investment"
+        },
+        "riskLevel": {
+          "type": "string",
+          "enum": ["low", "medium", "high"],
+          "description": "The risk level chosen"
+        },
+        "recommendations": {
+          "type": "string",
+          "description": "JSON stringified array of recommendations"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When the portfolio was saved"
+        }
+      },
+      "required": ["userId", "amount", "currency", "riskLevel", "recommendations", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "Stores user profiles"
+    },
+    "/portfolios/{portfolioId}": {
+      "schema": {
+        "$ref": "#/entities/Portfolio"
+      },
+      "description": "Stores saved portfolios"
+    }
+  }
+}
